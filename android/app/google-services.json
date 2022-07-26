@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "422402894288",
+    "project_id": "seamless-pay-a5e61",
+    "storage_bucket": "seamless-pay-a5e61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422402894288:android:b7240f74f695cda6dff1d5",
+        "android_client_info": {
+          "package_name": "com.lbnkosi.seamlesspay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422402894288-kbuo1gf9htpctloqvj41dn587bpqbv6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lbnkosi.seamlesspay",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "422402894288-ael9p9kup82nr6pei79g8nq8g6ma2mgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtSriaUXIOADss9-gdh5BSRPZeAqRC50I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422402894288-ael9p9kup82nr6pei79g8nq8g6ma2mgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422402894288-auh4n39gnsed0uvajn66ein4743u2cp6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lbnkosi.seamlesspay"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
