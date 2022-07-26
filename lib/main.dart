@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
             )
           : currentUser!.loggedIn
               ? HomePageWidget()
-              : CustomerManageAccountWidget(),
+              : IntroSliderOneWidget(),
     );
   }
 }
