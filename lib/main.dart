@@ -15,6 +15,8 @@ void main() async {
   await Firebase.initializeApp();
   await FlutterFlowTheme.initialize();
 
+  FFAppState(); // Initialize FFAppState
+
   runApp(MyApp());
 }
 
@@ -88,7 +90,7 @@ class _MyAppState extends State<MyApp> {
             )
           : currentUser!.loggedIn
               ? HomePageWidget()
-              : IntroSliderOneWidget(),
+              : BankAccountsPageWidget(),
     );
   }
 }

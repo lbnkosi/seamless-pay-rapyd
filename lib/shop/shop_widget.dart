@@ -1,6 +1,9 @@
+import '../checkout_page/checkout_page_widget.dart';
+import '../customer_manage_account/customer_manage_account_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_page/home_page_widget.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,18 +89,29 @@ class _ShopWidgetState extends State<ShopWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             100, 0, 0, 0),
-                                        child: Text(
-                                          'space',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Colors.white,
-                                                fontSize: 45,
-                                                letterSpacing: 15,
-                                                fontWeight: FontWeight.bold,
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomePageWidget(),
                                               ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'space',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Colors.white,
+                                                  fontSize: 45,
+                                                  letterSpacing: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -114,31 +128,53 @@ class _ShopWidgetState extends State<ShopWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 200, 0),
-                                              child: Text(
-                                                'Home',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: Colors.white,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                        ),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomePageWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Home',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color: Colors.white,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                ),
                                               ),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 200, 0),
-                                              child: Text(
-                                                'Account',
-                                                style: GoogleFonts.getFont(
-                                                  'Montserrat',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w300,
-                                                  fontSize: 20,
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CustomerManageAccountWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Account',
+                                                  style: GoogleFonts.getFont(
+                                                    'Montserrat',
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 20,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -169,10 +205,16 @@ class _ShopWidgetState extends State<ShopWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 100, 0),
                                       child: FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
+                                        onPressed: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CheckoutPageWidget(),
+                                            ),
+                                          );
                                         },
-                                        text: 'Explore',
+                                        text: 'Buy Ticket',
                                         options: FFButtonOptions(
                                           width: 200,
                                           height: 60,
@@ -343,8 +385,14 @@ class _ShopWidgetState extends State<ShopWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 40, 0, 0),
                                           child: FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
+                                            onPressed: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CheckoutPageWidget(),
+                                                ),
+                                              );
                                             },
                                             text: 'Buy Ticket',
                                             options: FFButtonOptions(

@@ -473,7 +473,7 @@ class _CustomerManageAccountWidgetState
                                     },
                                   );
                                 },
-                                text: 'View all dependents',
+                                text: 'Manage Family',
                                 icon: Icon(
                                   Icons.credit_card,
                                   color: FlutterFlowTheme.of(context)

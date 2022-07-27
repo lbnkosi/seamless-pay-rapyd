@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -626,6 +627,21 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                                 return;
                                               }
 
+                                              final usersCreateData =
+                                                  createUsersRecordData(
+                                                name: textController1!.text,
+                                                surname: textController2!.text,
+                                                phone: textController3!.text,
+                                                email:
+                                                    emailTextController!.text,
+                                                country: dropDownValue,
+                                                displayName:
+                                                    textController1!.text,
+                                              );
+                                              await UsersRecord.collection
+                                                  .doc(user.uid)
+                                                  .update(usersCreateData);
+
                                               await CreateCustomerCall.call(
                                                 name: textController1!.text,
                                                 surname: textController2!.text,
@@ -634,14 +650,17 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                                 number: textController3!.text,
                                                 country: dropDownValue,
                                               );
-                                              await Navigator
-                                                  .pushAndRemoveUntil(
+                                              await Navigator.push(
                                                 context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomePageWidget(),
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 300),
+                                                  child: HomePageWidget(),
                                                 ),
-                                                (r) => false,
                                               );
                                             },
                                             text: 'Sign Up',
