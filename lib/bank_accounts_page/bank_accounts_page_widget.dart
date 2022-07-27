@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
+import '../backend/backend.dart';
 import '../customer_manage_account/customer_manage_account_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -9,7 +10,6 @@ import '../home_page/home_page_widget.dart';
 import '../login/login_widget.dart';
 import '../shop/shop_widget.dart';
 import 'dart:ui';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,7 +26,6 @@ class BankAccountsPageWidget extends StatefulWidget {
 }
 
 class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
-  Completer<ApiCallResponse>? _apiRequestCompleter;
   String? dropDownValue1;
   TextEditingController? textController1;
   TextEditingController? textController2;
@@ -663,80 +662,70 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                     ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(100, 20, 100, 100),
-                                              child: FutureBuilder<
-                                                  ApiCallResponse>(
-                                                future: (_apiRequestCompleter ??=
-                                                        Completer<
-                                                            ApiCallResponse>()
-                                                          ..complete(
-                                                              SheetGetCustomersCall
-                                                                  .call()))
-                                                    .future,
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50,
-                                                        height: 50,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  final listViewSheetGetCustomersResponse =
-                                                      snapshot.data!;
-                                                  return Builder(
-                                                    builder: (context) {
-                                                      final bankChildren =
-                                                          getJsonField(
-                                                                (listViewSheetGetCustomersResponse
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                                r'''$..bankName[*]''',
-                                                              )?.toList() ??
-                                                              [];
-                                                      return RefreshIndicator(
-                                                        onRefresh: () async {
-                                                          setState(() =>
-                                                              _apiRequestCompleter =
-                                                                  null);
-                                                          await waitForApiRequestCompleter();
-                                                        },
-                                                        child: ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              bankChildren
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                              bankChildrenIndex) {
-                                                            final bankChildrenItem =
-                                                                bankChildren[
-                                                                    bankChildrenIndex];
-                                                            return Text(
-                                                              '',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            );
-                                                          },
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
+                                            StreamBuilder<
+                                                List<CustomersRecord>>(
+                                              stream: queryCustomersRecord(
+                                                queryBuilder: (customersRecord) =>
+                                                    customersRecord.where(
+                                                        'email',
+                                                        isEqualTo:
+                                                            'mainmemberv4@gmail.com'),
+                                                singleRecord: true,
                                               ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<CustomersRecord>
+                                                    listViewCustomersRecordList =
+                                                    snapshot.data!;
+                                                // Return an empty Container when the document does not exist.
+                                                if (snapshot.data!.isEmpty) {
+                                                  return Container();
+                                                }
+                                                final listViewCustomersRecord =
+                                                    listViewCustomersRecordList
+                                                        .first;
+                                                return Builder(
+                                                  builder: (context) {
+                                                    final tebogo =
+                                                        listViewCustomersRecord
+                                                            .bankAccounts!
+                                                            .toList();
+                                                    return ListView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount: tebogo.length,
+                                                      itemBuilder: (context,
+                                                          tebogoIndex) {
+                                                        final tebogoItem =
+                                                            tebogo[tebogoIndex];
+                                                        return Text(
+                                                          tebogoItem.bankName!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),
@@ -758,20 +747,5 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
         ),
       ),
     );
-  }
-
-  Future waitForApiRequestCompleter({
-    double minWait = 0,
-    double maxWait = double.infinity,
-  }) async {
-    final stopwatch = Stopwatch()..start();
-    while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
-      final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = _apiRequestCompleter?.isCompleted ?? false;
-      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
-        break;
-      }
-    }
   }
 }

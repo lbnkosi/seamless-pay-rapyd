@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState {
@@ -14,11 +16,22 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    _orders = prefs.getString('ff_orders')?.ref ?? _orders;
   }
 
   late SharedPreferences prefs;
 
   String customerId = '';
+
+  DocumentReference? _orders;
+  DocumentReference? get orders => _orders;
+  set orders(DocumentReference? _value) {
+    if (_value == null) {
+      return;
+    }
+    _orders = _value;
+    prefs.setString('ff_orders', _value.path);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

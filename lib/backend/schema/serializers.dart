@@ -1,7 +1,11 @@
 import 'package:built_value/standard_json_plugin.dart';
 
 import 'users_record.dart';
-import 'issued_banks_record.dart';
+import 'testdata_record.dart';
+import 'orders_record.dart';
+import 'vendor_record.dart';
+import 'customers_record.dart';
+import 'bank_accounts_record.dart';
 
 import 'index.dart';
 
@@ -13,7 +17,14 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
   UsersRecord,
-  IssuedBanksRecord,
+  TestdataRecord,
+  OrdersRecord,
+  VendorRecord,
+  CustomersRecord,
+  BankAccountsRecord,
+  PaymentsStruct,
+  BankAccountsStruct,
+  PaymentListStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

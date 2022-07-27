@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -626,21 +625,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                               if (user == null) {
                                                 return;
                                               }
-
-                                              final usersCreateData =
-                                                  createUsersRecordData(
-                                                name: textController1!.text,
-                                                surname: textController2!.text,
-                                                phone: textController3!.text,
-                                                email:
-                                                    emailTextController!.text,
-                                                country: dropDownValue,
-                                                displayName:
-                                                    textController1!.text,
-                                              );
-                                              await UsersRecord.collection
-                                                  .doc(user.uid)
-                                                  .update(usersCreateData);
 
                                               await CreateCustomerCall.call(
                                                 name: textController1!.text,

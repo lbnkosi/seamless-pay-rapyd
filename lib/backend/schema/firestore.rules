@@ -8,16 +8,39 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /users/{parent}/issued_banks/{document} {
+    match /testdata/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
-    match /{path=**}/issued_banks/{document} {
+    match /orders/{document} {
+      allow create: if true;
       allow read: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
+    match /vendor/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /customers/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /bankAccounts/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
   }
 }
