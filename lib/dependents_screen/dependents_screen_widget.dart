@@ -13,8 +13,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BankAccountsPageWidget extends StatefulWidget {
-  const BankAccountsPageWidget({
+class DependentsScreenWidget extends StatefulWidget {
+  const DependentsScreenWidget({
     Key? key,
     this.customerId,
   }) : super(key: key);
@@ -22,10 +22,10 @@ class BankAccountsPageWidget extends StatefulWidget {
   final String? customerId;
 
   @override
-  _BankAccountsPageWidgetState createState() => _BankAccountsPageWidgetState();
+  _DependentsScreenWidgetState createState() => _DependentsScreenWidgetState();
 }
 
-class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
+class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
   String? dropDownValue1;
   TextEditingController? textController1;
   TextEditingController? textController2;
@@ -61,7 +61,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
             ),
           );
         }
-        List<CustomersRecord> bankAccountsPageCustomersRecordList =
+        List<CustomersRecord> dependentsScreenCustomersRecordList =
             snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
@@ -277,7 +277,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       100, 100, 0, 0),
                                   child: Text(
-                                    'Virtual Accounts Numbers',
+                                    'Dependents',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -294,7 +294,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       100, 20, 0, 0),
                                   child: Text(
-                                    'Create a virtual account number so you can make bank transfers to an account that\'s local',
+                                    'Manage your dependents. Add them and view their details',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -769,7 +769,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                   child: Builder(
                                                     builder: (context) {
                                                       final newVarrrrr =
-                                                          bankAccountsPageCustomersRecordList
+                                                          dependentsScreenCustomersRecordList
                                                               .map((e) => e)
                                                               .toList();
                                                       return ListView.builder(

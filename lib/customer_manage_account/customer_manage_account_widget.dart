@@ -574,6 +574,27 @@ class _CustomerManageAccountWidgetState
                                                                                 functions.isOrderComplete(transactionsMadeeeeeItem.isPaymentComplete),
                                                                                 style: FlutterFlowTheme.of(context).bodyText1,
                                                                               ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Deposit Amount:  ',
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: 'Montserrat',
+                                                                                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                          fontWeight: FontWeight.normal,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    ordersMadeeeeItem.amount!,
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: 'Poppins',
+                                                                                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                          fontWeight: FontWeight.w300,
+                                                                                        ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
                                                                             ],
                                                                           );
                                                                         },

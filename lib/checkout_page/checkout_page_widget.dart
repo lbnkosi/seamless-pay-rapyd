@@ -9,6 +9,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../home_page/home_page_widget.dart';
 import '../login/login_widget.dart';
 import '../shop/shop_widget.dart';
+import '../ticket_success_screen/ticket_success_screen_widget.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,17 +33,29 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
   TextEditingController? textController2;
   TextEditingController? textController3;
   TextEditingController? textController4;
-  List<String>? checkboxGroupValues3;
   TextEditingController? textController5;
-  List<String>? checkboxGroupValues4;
   TextEditingController? textController6;
-  List<String>? checkboxGroupValues5;
   TextEditingController? textController7;
-  List<String>? checkboxGroupValues6;
   TextEditingController? textController8;
-  List<String>? checkboxGroupValues7;
+  TextEditingController? textController10;
   TextEditingController? textController9;
+  TextEditingController? textController11;
+  TextEditingController? textController12;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    textController10 = TextEditingController();
+    textController9 = TextEditingController();
+    textController5 = TextEditingController();
+    textController6 = TextEditingController();
+    textController7 = TextEditingController();
+    textController8 = TextEditingController();
+    textController11 = TextEditingController();
+    textController12 = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +246,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                               () => checkboxGroupValues1 = val),
                                           activeColor:
                                               FlutterFlowTheme.of(context)
-                                                  .secondaryColor,
+                                                  .tertiaryColor,
                                           checkColor: Colors.white,
                                           checkboxBorderColor:
                                               Color(0xFF95A1AC),
@@ -332,7 +345,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                     ),
                                               ),
                                               Text(
-                                                '\$1500.00',
+                                                '\$22500.00',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -388,7 +401,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                     ),
                                               ),
                                               Text(
-                                                '\$1500.00',
+                                                '\$172,500.00',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -411,7 +424,35 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                   0, 20, 0, 0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              await CreateOrderCall.call();
+                                              await CreateOrderCall.call(
+                                                customerId:
+                                                    checkoutPageCustomersRecord
+                                                        .customerId,
+                                                allocateFundsToOrder: true,
+                                                issuedAccountId1:
+                                                    textController5!.text,
+                                                issuedAccountId2:
+                                                    textController7!.text,
+                                                issuedAccountId3:
+                                                    textController9!.text,
+                                                issuedAccountId4:
+                                                    textController11!.text,
+                                                amount1: int.parse(
+                                                    textController6!.text),
+                                                amount2: int.parse(
+                                                    textController8!.text),
+                                                amount3: int.parse(
+                                                    textController10!.text),
+                                                amount4: int.parse(
+                                                    textController11!.text),
+                                              );
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TicketSuccessScreenWidget(),
+                                                ),
+                                              );
                                             },
                                             text: 'Create Order',
                                             options: FFButtonOptions(
@@ -914,18 +955,18 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 0),
+                                            0, 30, 0, 0),
                                         child: FlutterFlowCheckboxGroup(
                                           initiallySelected:
                                               checkboxGroupValues2 ??= [],
                                           options: [
-                                            'Automatically Allocate Funds That come Into Your Wallet Or Dependents Wallet To This Order'
+                                            'Automatically Allocate Funds That come Into Your Wallet Or Dependents \nWallet To This Order'
                                           ].toList(),
                                           onChanged: (val) => setState(
                                               () => checkboxGroupValues2 = val),
                                           activeColor:
                                               FlutterFlowTheme.of(context)
-                                                  .secondaryColor,
+                                                  .tertiaryColor,
                                           checkColor: Colors.white,
                                           checkboxBorderColor:
                                               Color(0xFF95A1AC),
@@ -937,573 +978,613 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBtnText,
-                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                           itemPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 5, 0, 0),
+                                          checkboxBorderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                       ),
-                                      if ((checkoutPageCustomersRecord
-                                              .bankAccounts!
-                                              .toList()
-                                              .length ==
-                                          1))
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 20, 0, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: FlutterFlowCheckboxGroup(
-                                                  initiallySelected:
-                                                      checkboxGroupValues3 ??=
-                                                          [],
-                                                  options:
-                                                      ['Option 1'].toList(),
-                                                  onChanged: (val) => setState(
-                                                      () =>
-                                                          checkboxGroupValues3 =
-                                                              val),
-                                                  activeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryColor,
-                                                  checkColor: Colors.white,
-                                                  checkboxBorderColor:
-                                                      Color(0xFF95A1AC),
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyText1,
-                                                ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 30, 0, 0),
+                                        child: Text(
+                                          'You can add up to 4 payments or payers',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiaryColor,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.normal,
                                               ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 15, 0),
-                                                  child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.2,
-                                                    child: TextFormField(
-                                                      controller:
-                                                          textController5 ??=
-                                                              TextEditingController(
-                                                        text:
-                                                            checkoutPageCustomersRecord
-                                                                .name,
-                                                      ),
-                                                      autofocus: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        isDense: true,
-                                                        labelText: 'First Name',
-                                                        hintStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
-                                                                ),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x4CFFFFFF),
-                                                            width: 1,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x4CFFFFFF),
-                                                            width: 1,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                        ),
-                                                        suffixIcon: Icon(
-                                                          Icons.email_outlined,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
-                                                          size: 22,
-                                                        ),
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                         ),
-                                      if ((checkoutPageCustomersRecord
-                                              .bankAccounts!
-                                              .toList()
-                                              .length ==
-                                          1))
-                                        Row(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
-                                              child: FlutterFlowCheckboxGroup(
-                                                initiallySelected:
-                                                    checkboxGroupValues4 ??= [],
-                                                options: ['Option 1'].toList(),
-                                                onChanged: (val) => setState(
-                                                    () => checkboxGroupValues4 =
-                                                        val),
-                                                activeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                checkColor: Colors.white,
-                                                checkboxBorderColor:
-                                                    Color(0xFF95A1AC),
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 15, 0),
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.2,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        textController6 ??=
-                                                            TextEditingController(
-                                                      text:
-                                                          checkoutPageCustomersRecord
-                                                              .name,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController5,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter first VAN',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
                                                     ),
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      labelText: 'First Name',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
                                                       ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x34F1F4F8),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryBtnText,
-                                                        size: 22,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController6,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please eneter Amount one',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x33FFFFFF),
                                                   ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                  textAlign: TextAlign.center,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                      if ((checkoutPageCustomersRecord
-                                              .bankAccounts!
-                                              .toList()
-                                              .length ==
-                                          3))
-                                        Row(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
-                                              child: FlutterFlowCheckboxGroup(
-                                                initiallySelected:
-                                                    checkboxGroupValues5 ??= [],
-                                                options: ['Option 1'].toList(),
-                                                onChanged: (val) => setState(
-                                                    () => checkboxGroupValues5 =
-                                                        val),
-                                                activeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                checkColor: Colors.white,
-                                                checkboxBorderColor:
-                                                    Color(0xFF95A1AC),
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 15, 0),
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.2,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        textController7 ??=
-                                                            TextEditingController(
-                                                      text:
-                                                          checkoutPageCustomersRecord
-                                                              .name,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController7,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter a second VAN',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
                                                     ),
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      labelText: 'First Name',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
                                                       ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x34F1F4F8),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryBtnText,
-                                                        size: 22,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController8,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter amount two',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x33FFFFFF),
                                                   ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                  textAlign: TextAlign.center,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                      if ((checkoutPageCustomersRecord
-                                              .bankAccounts!
-                                              .toList()
-                                              .length ==
-                                          4))
-                                        Row(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
-                                              child: FlutterFlowCheckboxGroup(
-                                                initiallySelected:
-                                                    checkboxGroupValues6 ??= [],
-                                                options: ['Option 1'].toList(),
-                                                onChanged: (val) => setState(
-                                                    () => checkboxGroupValues6 =
-                                                        val),
-                                                activeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                checkColor: Colors.white,
-                                                checkboxBorderColor:
-                                                    Color(0xFF95A1AC),
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 15, 0),
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.2,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        textController8 ??=
-                                                            TextEditingController(
-                                                      text:
-                                                          checkoutPageCustomersRecord
-                                                              .name,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController9,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter a  third VAN',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
                                                     ),
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      labelText: 'First Name',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
                                                       ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x34F1F4F8),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryBtnText,
-                                                        size: 22,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController10,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter amount three',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x33FFFFFF),
                                                   ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                  textAlign: TextAlign.center,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                      if ((checkoutPageCustomersRecord
-                                              .bankAccounts!
-                                              .toList()
-                                              .length ==
-                                          5))
-                                        Row(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
-                                              child: FlutterFlowCheckboxGroup(
-                                                initiallySelected:
-                                                    checkboxGroupValues7 ??= [],
-                                                options: ['Option 1'].toList(),
-                                                onChanged: (val) => setState(
-                                                    () => checkboxGroupValues7 =
-                                                        val),
-                                                activeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                checkColor: Colors.white,
-                                                checkboxBorderColor:
-                                                    Color(0xFF95A1AC),
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 15, 0),
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.2,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        textController9 ??=
-                                                            TextEditingController(
-                                                      text:
-                                                          checkoutPageCustomersRecord
-                                                              .name,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController11,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter a fourth VAN',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
                                                     ),
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      labelText: 'First Name',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
                                                       ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x34F1F4F8),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryBtnText,
-                                                        size: 22,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
+                                                child: TextFormField(
+                                                  controller: textController12,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    labelText:
+                                                        'Please enter amount four',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyText2
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x4CFFFFFF),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0x33FFFFFF),
                                                   ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                  textAlign: TextAlign.center,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
+                                      ),
                                     ],
                                   ),
                                 ),

@@ -22,3 +22,5 @@ export 'admin_page/admin_page_widget.dart' show AdminPageWidget;
 export 'dependents_page/dependents_page_widget.dart' show DependentsPageWidget;
 export 'ticket_success_screen/ticket_success_screen_widget.dart'
     show TicketSuccessScreenWidget;
+export 'dependents_screen/dependents_screen_widget.dart'
+    show DependentsScreenWidget;
