@@ -1,4 +1,5 @@
-# Seamless Pay
+# WorkFlow Web App for the Rapyd Hackathon
+## Hack the galaxy - Best space tourism app
 
 A new Flutter project.
 
