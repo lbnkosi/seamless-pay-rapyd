@@ -247,7 +247,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   100, 100, 0, 0),
                               child: Text(
-                                'Create Van Accounts',
+                                'Virtual Accounts Numbers',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
@@ -257,6 +257,21 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                       fontSize: 44,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: false,
+                                    ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(100, 20, 0, 0),
+                              child: Text(
+                                'Create a virtual account number so you can make bank transfers to an account that\'s local',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      fontWeight: FontWeight.normal,
                                     ),
                               ),
                             ),
@@ -286,7 +301,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 50, 0, 0),
                                             child: Text(
-                                              'Create VAN',
+                                              'Create a virtual account number',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyText1
@@ -596,6 +611,32 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                   description:
                                                       textController3!.text,
                                                 );
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('Success'),
+                                                      content: Text(
+                                                          'You have created a virtual account number. We\'ve sent an email to you with the details. Use it to make a purchase'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePageWidget(),
+                                                  ),
+                                                );
                                               },
                                               text: 'Create VAN',
                                               options: FFButtonOptions(
@@ -647,7 +688,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 50, 0, 0),
                                               child: Text(
-                                                'View VAN Accounts',
+                                                'View virtual account numbers',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -662,70 +703,107 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                     ),
                                               ),
                                             ),
-                                            StreamBuilder<
-                                                List<CustomersRecord>>(
-                                              stream: queryCustomersRecord(
-                                                queryBuilder: (customersRecord) =>
-                                                    customersRecord.where(
-                                                        'email',
-                                                        isEqualTo:
-                                                            'mainmemberv4@gmail.com'),
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<CustomersRecord>
-                                                    listViewCustomersRecordList =
-                                                    snapshot.data!;
-                                                // Return an empty Container when the document does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final listViewCustomersRecord =
-                                                    listViewCustomersRecordList
-                                                        .first;
-                                                return Builder(
-                                                  builder: (context) {
-                                                    final tebogo =
-                                                        listViewCustomersRecord
-                                                            .bankAccounts!
-                                                            .toList();
-                                                    return ListView.builder(
-                                                      padding: EdgeInsets.zero,
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount: tebogo.length,
-                                                      itemBuilder: (context,
-                                                          tebogoIndex) {
-                                                        final tebogoItem =
-                                                            tebogo[tebogoIndex];
-                                                        return Text(
-                                                          tebogoItem.bankName!,
-                                                          style: FlutterFlowTheme
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(100, 30, 100, 0),
+                                              child: StreamBuilder<
+                                                  List<CustomersRecord>>(
+                                                stream: queryCustomersRecord(
+                                                  queryBuilder: (customersRecord) =>
+                                                      customersRecord.where(
+                                                          'email',
+                                                          isEqualTo:
+                                                              'mainmemberv4@gmail.com'),
+                                                  singleRecord: true,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50,
+                                                        height: 50,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1,
-                                                        );
-                                                      },
+                                                              .primaryColor,
+                                                        ),
+                                                      ),
                                                     );
-                                                  },
-                                                );
-                                              },
+                                                  }
+                                                  List<CustomersRecord>
+                                                      listViewCustomersRecordList =
+                                                      snapshot.data!;
+                                                  // Return an empty Container when the document does not exist.
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Container();
+                                                  }
+                                                  final listViewCustomersRecord =
+                                                      listViewCustomersRecordList
+                                                          .first;
+                                                  return Builder(
+                                                    builder: (context) {
+                                                      final tebogo =
+                                                          listViewCustomersRecord
+                                                              .bankAccounts!
+                                                              .toList();
+                                                      return ListView.builder(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            tebogo.length,
+                                                        itemBuilder: (context,
+                                                            tebogoIndex) {
+                                                          final tebogoItem =
+                                                              tebogo[
+                                                                  tebogoIndex];
+                                                          return Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        5,
+                                                                        0,
+                                                                        5),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Text(
+                                                                  tebogoItem
+                                                                      .bankName!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1,
+                                                                ),
+                                                                Text(
+                                                                  tebogoItem
+                                                                      .countryIso!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1,
+                                                                ),
+                                                                Text(
+                                                                  tebogoItem
+                                                                      .currency!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ],
                                         ),

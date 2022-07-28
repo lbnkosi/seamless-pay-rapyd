@@ -6,6 +6,7 @@ import 'orders_record.dart';
 import 'vendor_record.dart';
 import 'customers_record.dart';
 import 'bank_accounts_record.dart';
+import 'refunds_record.dart';
 
 import 'index.dart';
 
@@ -22,6 +23,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   VendorRecord,
   CustomersRecord,
   BankAccountsRecord,
+  RefundsRecord,
   PaymentsStruct,
   BankAccountsStruct,
   PaymentListStruct,

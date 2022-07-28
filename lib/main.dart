@@ -12,7 +12,6 @@ import 'index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FlutterFlowTheme.initialize();
 
   FFAppState(); // Initialize FFAppState
 
@@ -30,7 +29,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  ThemeMode _themeMode = ThemeMode.system;
 
   late Stream<SeamlessPayFirebaseUser> userStream;
   SeamlessPayFirebaseUser? initialUser;
@@ -50,7 +49,6 @@ class _MyAppState extends State<MyApp> {
   void setLocale(Locale value) => setState(() => _locale = value);
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
       });
 
   @override
@@ -66,7 +64,6 @@ class _MyAppState extends State<MyApp> {
       locale: _locale,
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
           ? Center(
@@ -80,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             )
           : currentUser!.loggedIn
               ? HomePageWidget()
-              : BankAccountsPageWidget(),
+              : IntroSliderOneWidget(),
     );
   }
 }

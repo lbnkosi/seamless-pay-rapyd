@@ -66,21 +66,48 @@ class CreateOrderCall {
   static Future<ApiCallResponse> call({
     String? customerId = '',
     bool? allocateFundsToOrder = true,
+    String? issuedAccountId1 = '',
+    String? issuedAccountId2 = '',
+    String? issuedAccountId3 = '',
+    String? issuedAccountId4 = '',
+    bool? isDependentPayment1,
+    bool? isDependentPayment2,
+    bool? isDependentPayment3,
+    bool? isDependentPayment4 = false,
+    int? amount1,
+    int? amount2,
+    int? amount3,
+    int? amount4,
   }) {
     final body = '''
 {
   "customer_id": "${customerId}",
   "payment_type": "",
-  "listed_payments": [
-    {
-      "is_dependent_payment": false,
-      "amount": 0,
-      "issued_account_id": ""
-    }
-  ],
   "add_on_product_id": "",
   "add_on_payment_type": "",
-  "allocate_funds_to_order": ${allocateFundsToOrder}
+  "allocate_funds_to_order": ${allocateFundsToOrder},
+  "listed_payments": [
+    {
+      "is_dependent_payment": ${isDependentPayment1},
+      "amount": ${amount1},
+      "issued_account_id": "${issuedAccountId1}"
+    },
+    {
+      "is_dependent_payment": ${isDependentPayment2},
+      "amount": ${amount2},
+      "issued_account_id": "${issuedAccountId2}"
+    },
+    {
+      "is_dependent_payment": ${isDependentPayment3},
+      "amount": ${amount3},
+      "issued_account_id": "${issuedAccountId3}"
+    },
+    {
+      "is_dependent_payment": ${isDependentPayment4},
+      "amount": ${amount4},
+      "issued_account_id": "${issuedAccountId4}"
+    }
+  ]
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CreateOrder',
@@ -90,6 +117,18 @@ class CreateOrderCall {
       params: {
         'customer_id': customerId,
         'allocate_funds_to_order': allocateFundsToOrder,
+        'issued_account_id_1': issuedAccountId1,
+        'issued_account_id_2': issuedAccountId2,
+        'issued_account_id_3': issuedAccountId3,
+        'issued_account_id_4': issuedAccountId4,
+        'is_dependent_payment_1': isDependentPayment1,
+        'is_dependent_payment_2': isDependentPayment2,
+        'is_dependent_payment_3': isDependentPayment3,
+        'is_dependent_payment_4': isDependentPayment4,
+        'amount_1': amount1,
+        'amount_2': amount2,
+        'amount_3': amount3,
+        'amount_4': amount4,
       },
       body: body,
       bodyType: BodyType.JSON,
@@ -108,15 +147,19 @@ class CreateVanCall {
   }) {
     final body = '''
 {
-  "country": "${country}",
-  "currency": "${currency}",
-  "customerID": "${customerID}",
-  "customerEmail": "${customerEmail}",
-  "description": "${description}"
+  "customers": [
+    {
+      "country": "${country}",
+      "currency": "${currency}",
+      "customerID": "${customerID}",
+      "customerEmail": "${customerEmail}",
+      "description": "${description}"
+    }
+  ]
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CreateVan',
-      apiUrl: 'https://seamlesspay.co.za/api/toolkit/v1/payment',
+      apiUrl: 'http://seamlesspay.co.za/api/toolkit/v1/payment',
       callType: ApiCallType.POST,
       headers: {},
       params: {

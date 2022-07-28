@@ -6,6 +6,7 @@ import '../home_page/home_page_widget.dart';
 import '../registration/registration_widget.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -25,6 +26,25 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      final user = await signInWithEmail(
+        context,
+        emailTextFieldController!.text,
+        passwordTextFieldController!.text,
+      );
+      if (user == null) {
+        return;
+      }
+
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePageWidget(),
+        ),
+      );
+    });
+
     emailTextFieldController = TextEditingController();
     passwordTextFieldController = TextEditingController();
     passwordTextFieldVisibility = false;

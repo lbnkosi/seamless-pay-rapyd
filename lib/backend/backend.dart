@@ -10,6 +10,7 @@ import 'schema/orders_record.dart';
 import 'schema/vendor_record.dart';
 import 'schema/customers_record.dart';
 import 'schema/bank_accounts_record.dart';
+import 'schema/refunds_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -23,6 +24,7 @@ export 'schema/orders_record.dart';
 export 'schema/vendor_record.dart';
 export 'schema/customers_record.dart';
 export 'schema/bank_accounts_record.dart';
+export 'schema/refunds_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord({
@@ -270,6 +272,48 @@ Future<FFFirestorePage<BankAccountsRecord>> queryBankAccountsRecordPage({
     queryCollectionPage(
       BankAccountsRecord.collection,
       BankAccountsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query RefundsRecords (as a Stream and as a Future).
+Stream<List<RefundsRecord>> queryRefundsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RefundsRecord.collection,
+      RefundsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<RefundsRecord>> queryRefundsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RefundsRecord.collection,
+      RefundsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<RefundsRecord>> queryRefundsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      RefundsRecord.collection,
+      RefundsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

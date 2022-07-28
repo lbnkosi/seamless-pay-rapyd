@@ -32,6 +32,20 @@ class FFAppState {
     _orders = _value;
     prefs.setString('ff_orders', _value.path);
   }
+
+  String paymentone = '';
+
+  String paymenttwo = '';
+
+  String paymentthree = '';
+
+  String paymentfour = '';
+
+  String paymentfive = '';
+
+  String paymentsix = '';
+
+  String paymentseven = '';
 }
 
 LatLng? _latLngFromString(String? val) {
