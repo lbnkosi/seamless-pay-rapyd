@@ -13,8 +13,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BankAccountsPageWidget extends StatefulWidget {
-  const BankAccountsPageWidget({
+class RefundPageWidget extends StatefulWidget {
+  const RefundPageWidget({
     Key? key,
     this.customerId,
   }) : super(key: key);
@@ -22,14 +22,15 @@ class BankAccountsPageWidget extends StatefulWidget {
   final String? customerId;
 
   @override
-  _BankAccountsPageWidgetState createState() => _BankAccountsPageWidgetState();
+  _RefundPageWidgetState createState() => _RefundPageWidgetState();
 }
 
-class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
-  String? dropDownValue1;
+class _RefundPageWidgetState extends State<RefundPageWidget> {
+  String? dropDownValue;
   TextEditingController? textController1;
   TextEditingController? textController2;
-  String? dropDownValue2;
+  TextEditingController? textController3;
+  TextEditingController? textController4;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,6 +38,8 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
+    textController3 = TextEditingController();
+    textController4 = TextEditingController();
   }
 
   @override
@@ -45,7 +48,6 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
       stream: queryCustomersRecord(
         queryBuilder: (customersRecord) =>
             customersRecord.where('email', isEqualTo: currentUserEmail),
-        singleRecord: true,
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -60,14 +62,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
             ),
           );
         }
-        List<CustomersRecord> bankAccountsPageCustomersRecordList =
-            snapshot.data!;
-        // Return an empty Container when the document does not exist.
-        if (snapshot.data!.isEmpty) {
-          return Container();
-        }
-        final bankAccountsPageCustomersRecord =
-            bankAccountsPageCustomersRecordList.first;
+        List<CustomersRecord> refundPageCustomersRecordList = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -161,19 +156,30 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 200, 0),
-                                                child: Text(
-                                                  'Home',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color: Colors.white,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w300,
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HomePageWidget(),
                                                       ),
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    'Home',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                  ),
                                                 ),
                                               ),
                                               Padding(
@@ -282,7 +288,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       100, 100, 0, 0),
                                   child: Text(
-                                    'Virtual Accounts Numbers',
+                                    'Refunds',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -299,7 +305,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       100, 20, 0, 0),
                                   child: Text(
-                                    'Create a virtual account number so you can make bank transfers to an account that\'s local',
+                                    'Request and manage refunds. You can also request multiple refunds  for different sources',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -323,7 +329,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.3,
+                                              0.9,
                                           height: 600,
                                           decoration: BoxDecoration(
                                             color: Color(0x4DFFFFFF),
@@ -338,7 +344,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 50, 0, 0),
                                                 child: Text(
-                                                  'Create a virtual account number',
+                                                  'Request Refund',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -355,7 +361,46 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 50, 15, 0),
+                                                    .fromSTEB(10, 50, 15, 0),
+                                                child: FlutterFlowDropDown(
+                                                  options: [
+                                                    'BANK_TRANSFER_PAYOUT_REFUND',
+                                                    'WALLET_TRANSFER_REFUND',
+                                                    'CARD_PAYOUT_REFUND',
+                                                    'COUPON_REFUND'
+                                                  ],
+                                                  onChanged: (val) => setState(
+                                                      () =>
+                                                          dropDownValue = val),
+                                                  width: 385,
+                                                  height: 41,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                  hintText: 'Please select...',
+                                                  elevation: 2,
+                                                  borderColor:
+                                                      Color(0x82FFFFFF),
+                                                  borderWidth: 0,
+                                                  borderRadius: 0,
+                                                  margin: EdgeInsetsDirectional
+                                                      .fromSTEB(12, 4, 12, 4),
+                                                  hidesUnderline: true,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10, 0, 0),
                                                 child: Container(
                                                   width: MediaQuery.of(context)
                                                           .size
@@ -367,8 +412,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       isDense: true,
-                                                      labelText:
-                                                          'Customer Email',
+                                                      labelText: 'Order ID',
                                                       hintStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -389,7 +433,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15),
+                                                                .circular(0),
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
@@ -400,16 +444,11 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15),
+                                                                .circular(0),
                                                       ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        size: 22,
-                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          Color(0x34F1F4F8),
                                                     ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -423,12 +462,13 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    textAlign: TextAlign.center,
                                                   ),
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 20, 15, 0),
+                                                    .fromSTEB(0, 10, 0, 0),
                                                 child: Container(
                                                   width: MediaQuery.of(context)
                                                           .size
@@ -436,6 +476,143 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                       0.2,
                                                   child: TextFormField(
                                                     controller: textController2,
+                                                    autofocus: true,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      isDense: true,
+                                                      labelText: 'Order Amount',
+                                                      hintStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                              ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0x4CFFFFFF),
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0x4CFFFFFF),
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
+                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          Color(0x34F1F4F8),
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBtnText,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10, 0, 0),
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.2,
+                                                  child: TextFormField(
+                                                    controller: textController3,
+                                                    autofocus: true,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      isDense: true,
+                                                      labelText:
+                                                          'Refund Amount',
+                                                      hintStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                              ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0x4CFFFFFF),
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0x4CFFFFFF),
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
+                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          Color(0x34F1F4F8),
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBtnText,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10, 0, 0),
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.2,
+                                                  child: TextFormField(
+                                                    controller: textController4,
                                                     autofocus: true,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
@@ -461,7 +638,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15),
+                                                                .circular(0),
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
@@ -472,16 +649,11 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(15),
+                                                                .circular(0),
                                                       ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        size: 22,
-                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          Color(0x34F1F4F8),
                                                     ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -495,93 +667,8 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                           fontWeight:
                                                               FontWeight.w300,
                                                         ),
+                                                    textAlign: TextAlign.center,
                                                   ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 20, 15, 0),
-                                                child: FlutterFlowDropDown(
-                                                  options: ['GB', 'US', 'SG'],
-                                                  onChanged: (val) => setState(
-                                                      () =>
-                                                          dropDownValue1 = val),
-                                                  width: 390,
-                                                  height: 41,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                  hintText: 'Please select...',
-                                                  icon: Icon(
-                                                    Icons.location_on,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBtnText,
-                                                    size: 15,
-                                                  ),
-                                                  elevation: 2,
-                                                  borderColor:
-                                                      Color(0x82FFFFFF),
-                                                  borderWidth: 0,
-                                                  borderRadius: 15,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(12, 4, 12, 4),
-                                                  hidesUnderline: true,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 20, 15, 0),
-                                                child: FlutterFlowDropDown(
-                                                  options: [
-                                                    'GBP',
-                                                    'USD',
-                                                    'SGD'
-                                                  ],
-                                                  onChanged: (val) => setState(
-                                                      () =>
-                                                          dropDownValue2 = val),
-                                                  width: 390,
-                                                  height: 41,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                  hintText: 'Please select...',
-                                                  icon: Icon(
-                                                    Icons.location_on,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBtnText,
-                                                    size: 15,
-                                                  ),
-                                                  elevation: 2,
-                                                  borderColor:
-                                                      Color(0x82FFFFFF),
-                                                  borderWidth: 0,
-                                                  borderRadius: 15,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(12, 4, 12, 4),
-                                                  hidesUnderline: true,
                                                 ),
                                               ),
                                               Padding(
@@ -589,34 +676,17 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                     .fromSTEB(0, 100, 0, 0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
-                                                    await CreateVanCall.call(
-                                                      country: dropDownValue1,
-                                                      currency: dropDownValue2,
-                                                      customerID:
-                                                          textController2!.text,
-                                                      customerEmail:
+                                                    await RefundApiCallCall
+                                                        .call(
+                                                      customerId:
+                                                          textController4!.text,
+                                                      orderId:
                                                           textController1!.text,
-                                                      description: 'Testing',
-                                                    );
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              Text('Success'),
-                                                          content: Text(
-                                                              'You have created a virtual account number. We\'ve sent an email to you with the details. Use it to make a purchase'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
+                                                      orderAmount:
+                                                          textController2!.text,
+                                                      amount1: int.parse(
+                                                          textController3!
+                                                              .text),
                                                     );
                                                     await Navigator.push(
                                                       context,
@@ -626,7 +696,7 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                       ),
                                                     );
                                                   },
-                                                  text: 'Create VAN',
+                                                  text: 'Request Refund',
                                                   options: FFButtonOptions(
                                                     width: 180,
                                                     height: 40,
@@ -654,105 +724,6 @@ class _BankAccountsPageWidgetState extends State<BankAccountsPageWidget> {
                                                 ),
                                               ),
                                             ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  25, 0, 0, 0),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 600,
-                                            decoration: BoxDecoration(
-                                              color: Color(0x4CFFFFFF),
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 50, 0, 0),
-                                                  child: Text(
-                                                    'View virtual account numbers',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          100, 30, 100, 0),
-                                                  child: Builder(
-                                                    builder: (context) {
-                                                      final customerVansssssssssssEEEE =
-                                                          bankAccountsPageCustomersRecord
-                                                              .bankAccounts!
-                                                              .toList();
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            customerVansssssssssssEEEE
-                                                                .length,
-                                                        itemBuilder: (context,
-                                                            customerVansssssssssssEEEEIndex) {
-                                                          final customerVansssssssssssEEEEItem =
-                                                              customerVansssssssssssEEEE[
-                                                                  customerVansssssssssssEEEEIndex];
-                                                          return Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                customerVansssssssssssEEEEItem
-                                                                    .bankName!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                              Text(
-                                                                customerVansssssssssssEEEEItem
-                                                                    .countryIso!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                              Text(
-                                                                customerVansssssssssssEEEEItem
-                                                                    .currency!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
                                         ),
                                       ),

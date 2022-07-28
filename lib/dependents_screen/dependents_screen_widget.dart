@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../customer_manage_account/customer_manage_account_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
@@ -29,7 +28,6 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
   String? dropDownValue1;
   TextEditingController? textController1;
   TextEditingController? textController2;
-  TextEditingController? textController3;
   String? dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,7 +36,6 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 = TextEditingController();
   }
 
   @override
@@ -333,7 +330,7 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 50, 0, 0),
                                                 child: Text(
-                                                  'Create a virtual account number',
+                                                  'Add Dependents',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -362,8 +359,7 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       isDense: true,
-                                                      labelText:
-                                                          'Customer Email',
+                                                      labelText: 'Email',
                                                       hintStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -431,78 +427,6 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
                                                       0.2,
                                                   child: TextFormField(
                                                     controller: textController2,
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-                                                      labelText: 'Customer ID',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x4CFFFFFF),
-                                                          width: 1,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      suffixIcon: Icon(
-                                                        Icons.email_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        size: 22,
-                                                      ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 20, 15, 0),
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.2,
-                                                  child: TextFormField(
-                                                    controller: textController3,
                                                     autofocus: true,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
@@ -655,44 +579,8 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 100, 0, 0),
                                                 child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    await CreateVanCall.call(
-                                                      country: dropDownValue1,
-                                                      currency: dropDownValue2,
-                                                      customerID:
-                                                          textController2!.text,
-                                                      customerEmail:
-                                                          textController1!.text,
-                                                      description:
-                                                          textController3!.text,
-                                                    );
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              Text('Success'),
-                                                          content: Text(
-                                                              'You have created a virtual account number. We\'ve sent an email to you with the details. Use it to make a purchase'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            HomePageWidget(),
-                                                      ),
-                                                    );
+                                                  onPressed: () {
+                                                    print('Button pressed ...');
                                                   },
                                                   text: 'Create VAN',
                                                   options: FFButtonOptions(
@@ -742,75 +630,24 @@ class _DependentsScreenWidgetState extends State<DependentsScreenWidget> {
                                             ),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 50, 0, 0),
-                                                  child: Text(
-                                                    'View virtual account numbers',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          100, 30, 100, 0),
-                                                  child: Builder(
-                                                    builder: (context) {
-                                                      final newVarrrrr =
-                                                          dependentsScreenCustomersRecordList
-                                                              .map((e) => e)
-                                                              .toList();
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            newVarrrrr.length,
-                                                        itemBuilder: (context,
-                                                            newVarrrrrIndex) {
-                                                          final newVarrrrrItem =
-                                                              newVarrrrr[
-                                                                  newVarrrrrIndex];
-                                                          return Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        5,
-                                                                        0,
-                                                                        5),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Text(
-                                                                  'Hello World',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
+                                                Text(
+                                                  'No dependents added',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                 ),
                                               ],
                                             ),

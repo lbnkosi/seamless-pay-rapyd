@@ -112,7 +112,7 @@ class _TicketSuccessScreenWidgetState extends State<TicketSuccessScreenWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                 child: Text(
-                                  'Please make payments to the following accounts. We have sent you an email with more details information',
+                                  'Please make payments to your accounts. We have sent you an email with more details.',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -120,29 +120,6 @@ class _TicketSuccessScreenWidgetState extends State<TicketSuccessScreenWidget> {
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBtnText,
                                       ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    500, 20, 500, 0),
-                                child: ListView(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  children: [
-                                    Text(
-                                      'UK Bank Number One',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBtnText,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ],
@@ -208,16 +185,27 @@ class _TicketSuccessScreenWidgetState extends State<TicketSuccessScreenWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 200, 0),
-                                      child: Text(
-                                        'Home',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w300,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePageWidget(),
                                             ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'Home',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                     Padding(

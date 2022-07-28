@@ -70,14 +70,10 @@ class CreateOrderCall {
     String? issuedAccountId2 = '',
     String? issuedAccountId3 = '',
     String? issuedAccountId4 = '',
-    bool? isDependentPayment1,
-    bool? isDependentPayment2,
-    bool? isDependentPayment3,
-    bool? isDependentPayment4 = false,
-    int? amount1,
-    int? amount2,
-    int? amount3,
-    int? amount4,
+    int? amount1 = 0,
+    int? amount2 = 0,
+    int? amount3 = 0,
+    int? amount4 = 0,
   }) {
     final body = '''
 {
@@ -88,22 +84,22 @@ class CreateOrderCall {
   "allocate_funds_to_order": ${allocateFundsToOrder},
   "listed_payments": [
     {
-      "is_dependent_payment": ${isDependentPayment1},
+      "is_dependent_payment": false,
       "amount": ${amount1},
       "issued_account_id": "${issuedAccountId1}"
     },
     {
-      "is_dependent_payment": ${isDependentPayment2},
+      "is_dependent_payment": false,
       "amount": ${amount2},
       "issued_account_id": "${issuedAccountId2}"
     },
     {
-      "is_dependent_payment": ${isDependentPayment3},
+      "is_dependent_payment": false,
       "amount": ${amount3},
       "issued_account_id": "${issuedAccountId3}"
     },
     {
-      "is_dependent_payment": ${isDependentPayment4},
+      "is_dependent_payment": false,
       "amount": ${amount4},
       "issued_account_id": "${issuedAccountId4}"
     }
@@ -121,10 +117,6 @@ class CreateOrderCall {
         'issued_account_id_2': issuedAccountId2,
         'issued_account_id_3': issuedAccountId3,
         'issued_account_id_4': issuedAccountId4,
-        'is_dependent_payment_1': isDependentPayment1,
-        'is_dependent_payment_2': isDependentPayment2,
-        'is_dependent_payment_3': isDependentPayment3,
-        'is_dependent_payment_4': isDependentPayment4,
         'amount_1': amount1,
         'amount_2': amount2,
         'amount_3': amount3,
@@ -248,6 +240,82 @@ class SheetGetOrdersCall {
       callType: ApiCallType.GET,
       headers: {},
       params: {},
+      returnBody: true,
+    );
+  }
+}
+
+class RefundApiCallCall {
+  static Future<ApiCallResponse> call({
+    String? customerId = '',
+    String? orderId = '',
+    String? orderAmount = '',
+    int? amount1,
+    int? amount2,
+    int? amount3,
+    int? amount4,
+    String? walletId1 = '',
+    String? walletId2 = '',
+    String? walletId3 = '',
+    String? walletId4 = '',
+    String? type1 = '',
+    String? type2 = '',
+    String? type3 = '',
+    String? type4 = '',
+  }) {
+    final body = '''
+{
+  "customerId": "${customerId}",
+  "orderId": "${orderId}",
+  "orderAmount": "${orderAmount}",
+  "beneficiaryId": "",
+  "refundItems": [
+    {
+      "amount": ${amount1},
+      "walletId": "${walletId1}",
+      "type": "${type1}"
+    },
+    {
+      "amount": ${amount2},
+      "walletId": "${walletId2}",
+      "type": "${type2}"
+    },
+    {
+      "amount": ${amount3},
+      "walletId": "${walletId3}",
+      "type": "${type3}"
+    },
+    {
+      "amount": ${amount4},
+      "walletId": "${walletId4}",
+      "type": "${type4}"
+    }
+  ]
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'RefundApiCall',
+      apiUrl: 'http://seamlesspay.co.za/api/toolkit/v1/refund/refund',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'customerId': customerId,
+        'orderId': orderId,
+        'orderAmount': orderAmount,
+        'amount1': amount1,
+        'amount2': amount2,
+        'amount3': amount3,
+        'amount4': amount4,
+        'walletId1': walletId1,
+        'walletId2': walletId2,
+        'walletId3': walletId3,
+        'walletId4': walletId4,
+        'type1': type1,
+        'type2': type2,
+        'type3': type3,
+        'type4': type4,
+      },
+      body: body,
+      bodyType: BodyType.JSON,
       returnBody: true,
     );
   }

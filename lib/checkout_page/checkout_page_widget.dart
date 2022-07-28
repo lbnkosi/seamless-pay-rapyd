@@ -444,14 +444,16 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                 amount3: int.parse(
                                                     textController10!.text),
                                                 amount4: int.parse(
-                                                    textController11!.text),
+                                                    textController12!.text),
                                               );
-                                              await Navigator.push(
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       TicketSuccessScreenWidget(),
                                                 ),
+                                                (r) => false,
                                               );
                                             },
                                             text: 'Create Order',

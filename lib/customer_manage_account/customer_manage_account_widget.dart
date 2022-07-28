@@ -1,9 +1,12 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/planet_item_widget.dart';
+import '../bank_accounts_page/bank_accounts_page_widget.dart';
+import '../dependents_page/dependents_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_page/home_page_widget.dart';
+import '../refund_page/refund_page_widget.dart';
 import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
@@ -564,36 +567,51 @@ class _CustomerManageAccountWidgetState
                                                                             children: [
                                                                               Text(
                                                                                 transactionsMadeeeeeItem.amount!.toString(),
-                                                                                style: FlutterFlowTheme.of(context).bodyText1,
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      fontSize: 12,
+                                                                                      fontWeight: FontWeight.w300,
+                                                                                    ),
                                                                               ),
                                                                               Text(
                                                                                 transactionsMadeeeeeItem.issuedAccountId!,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1,
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      fontSize: 12,
+                                                                                      fontWeight: FontWeight.w300,
+                                                                                    ),
                                                                               ),
                                                                               Text(
                                                                                 functions.isOrderComplete(transactionsMadeeeeeItem.isPaymentComplete),
-                                                                                style: FlutterFlowTheme.of(context).bodyText1,
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      fontSize: 12,
+                                                                                      fontWeight: FontWeight.w300,
+                                                                                    ),
                                                                               ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Deposit Amount:  ',
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Montserrat',
-                                                                                          color: FlutterFlowTheme.of(context).primaryBtnText,
-                                                                                          fontWeight: FontWeight.normal,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Text(
-                                                                                    ordersMadeeeeItem.amount!,
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Poppins',
-                                                                                          color: FlutterFlowTheme.of(context).primaryBtnText,
-                                                                                          fontWeight: FontWeight.w300,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      'Deposit Amount:  ',
+                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            fontFamily: 'Montserrat',
+                                                                                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                            fontWeight: FontWeight.normal,
+                                                                                          ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      ordersMadeeeeItem.amount!,
+                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            fontFamily: 'Poppins',
+                                                                                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                            fontWeight: FontWeight.w300,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
                                                                               ),
                                                                             ],
                                                                           );
@@ -667,7 +685,7 @@ class _CustomerManageAccountWidgetState
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
-                                                      0.5,
+                                                      0.45,
                                                   decoration: BoxDecoration(
                                                     color: Color(0x33FFFFFF),
                                                     borderRadius:
@@ -804,30 +822,40 @@ class _CustomerManageAccountWidgetState
                                                 );
                                               },
                                             ),
-                                            FFButtonWidget(
-                                              onPressed: () {
-                                                print('Button pressed ...');
-                                              },
-                                              text: 'Request Refund',
-                                              options: FFButtonOptions(
-                                                width: 230,
-                                                height: 45,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .subtitle2
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1,
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 20, 0, 0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          RefundPageWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                                text: 'Request Refund',
+                                                options: FFButtonOptions(
+                                                  width: 230,
+                                                  height: 45,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
                                               ),
                                             ),
                                           ],
@@ -913,10 +941,16 @@ class _CustomerManageAccountWidgetState
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 100, 0, 0),
                                   child: FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              BankAccountsPageWidget(),
+                                        ),
+                                      );
                                     },
-                                    text: 'Overview',
+                                    text: 'Create VAN',
                                     icon: Icon(
                                       Icons.account_balance_wallet,
                                       color: FlutterFlowTheme.of(context)
@@ -986,25 +1020,12 @@ class _CustomerManageAccountWidgetState
                                       0, 40, 0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryBtnText,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.3,
-                                              child: PlanetItemWidget(),
-                                            ),
-                                          );
-                                        },
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DependentsPageWidget(),
+                                        ),
                                       );
                                     },
                                     text: 'Manage Family',
@@ -1038,48 +1059,18 @@ class _CustomerManageAccountWidgetState
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 40, 0, 0),
+                                      0, 55, 0, 0),
                                   child: FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomePageWidget(),
+                                        ),
+                                      );
                                     },
-                                    text: 'Withdraw Money',
-                                    icon: Icon(
-                                      Icons.people,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      size: 15,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: 290,
-                                      height: 45,
-                                      color: Color(0x004B39EF),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBtnText,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      elevation: 0,
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBtnText,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(35),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 427, 0, 0),
-                                  child: FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
-                                    },
-                                    text: 'Sign Out',
+                                    text: 'Go Back',
                                     options: FFButtonOptions(
                                       width: 400,
                                       height: 64,
